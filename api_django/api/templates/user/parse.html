@@ -1,0 +1,72 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+
+<form action="{% url 'parse' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-error">{{ form.non_field_errors }}</div>
+
+{% for field in form %}
+  <p>
+    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+    {{ field }}
+    {% if field.help_text %}
+      <span class="tooltip-icon" data-toggle="tooltip" data-placement="right" title="{{ field.help_text }}">?</span>
+    {% endif %}
+  </p>
+<div class="form-error">{{ f.errors }}</div>
+{% endfor %}
+
+    <button class="web__app__btn btn-reset" type="submit">Добавить</button>
+</form>
+<script>
+$(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const yearStartSelect = document.getElementById("id_year_start");
+    const yearEndSelect = document.getElementById("id_year_end");
+
+    yearStartSelect.addEventListener("change", function() {
+        const selectedYearStart = parseInt(yearStartSelect.value);
+        const currentYear = new Date().getFullYear();
+        const yearEndOptions = yearEndSelect.options;
+        const lastSelectedYearEnd = parseInt(yearEndSelect.value);
+
+        // Удалить все варианты, кроме первого пустого
+        while (yearEndOptions.length > 1) {
+            yearEndOptions.remove(1);
+        }
+
+        // Добавить новые варианты в список year_end
+        for (let year = selectedYearStart; year <= currentYear; year++) {
+            const option = document.createElement("option");
+            option.value = year;
+            option.text = year;
+            yearEndSelect.appendChild(option);
+        }
+        yearEndOptions.remove(0)
+
+        // Установить начальное значение year_end равным минимальному доступному значению
+        if (lastSelectedYearEnd < selectedYearStart){
+            yearEndSelect.value = selectedYearStart;
+        } else {
+            yearEndSelect.value = lastSelectedYearEnd;
+        }
+
+    });
+
+    // Вызвать событие change для year_start, чтобы установить начальное значение year_end
+    yearStartSelect.dispatchEvent(new Event("change"));
+});
+</script>
+
+
+
+
+
+{% endblock %}

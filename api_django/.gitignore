@@ -1,0 +1,26 @@
+/.idea
+__pycache__/
+test_contracts/
+/handlers/__pycache__
+/keyboards/__pycache__
+purchases_parsing/__pycache__
+/tender_db/__pycache__
+/pdf_generator/__pycache__
+/purchases_parsing/fonts
+
+**/__pycache__
+
+config.py
+
+*.txt
+!gov_customers.txt
+!requirements.txt
+
+*.sqlite3
+*.db
+*.pdf
+*.xlsxGit rm
+*.pkl
+*.csv#
+/bot_data_sources/__pycache__
+/tender_db_mysql/connection_info.py

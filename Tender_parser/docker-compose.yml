@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  parser1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python3 list_parser.py"
+    restart: always
+    volumes:
+      - ./order_data1.csv:/home/order_data.csv
+      - ./proceeded_data:/home/proceeded_data
+  parser2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python3 list_parser.py"
+    restart: always
+    volumes:
+      - ./order_data2.csv:/home/order_data.csv
+      - ./proceeded_data:/home/proceeded_data
+  parser3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python3 list_parser.py"
+    restart: always
+    volumes:
+      - ./order_data3.csv:/home/order_data.csv
+      - ./proceeded_data:/home/proceeded_data
+
+

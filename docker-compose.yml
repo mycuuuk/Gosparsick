@@ -1,0 +1,95 @@
+version: '3.3'
+
+services:
+  mysql:
+    image: mysql/mysql-server:latest
+    restart: always
+    volumes:
+      - mydbdata:/var/lib/mysql # Сохранение данных MySQL в том
+    environment:
+        MYSQL_DATABASE: 'WEB_PAGE_DATA'
+        MYSQL_USER: 'mycuuuk'
+        MYSQL_PASSWORD: 'mycuuuk'
+        MYSQL_ROOT_PASSWORD: 'admin'
+    ports:
+      - "6604:3306"
+    expose:
+      - 3306
+    healthcheck:
+      test: mysqladmin ping -h localhost -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - appnetwork
+  server:
+    build:
+      context: api_django
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python3 manage.py makemigrations &&
+             python3 manage.py migrate &&
+             python3 manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); username = 'admin'; email = 'admin@example.com'; password = 'admin'; user, created = User.objects.get_or_create(username=username, defaults={'email': email, 'is_staff': True, 'is_superuser': True}); created and user.set_password(password); created and user.save(); print('Superuser admin created' if created else 'Superuser admin already exists')\" &&
+             python3 manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8001:8000"
+    restart: always
+    volumes:
+      - ./app:/app
+      - ./data/web:/vol/web
+      - ./results:/home/results
+    environment:
+      - SECRET_KEY=devsecretkey
+      - DEBUG=1
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=WEB_PAGE_DATA
+      - DB_USER=mycuuuk
+      - DB_PASSWORD=mycuuuk
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@example.com
+      - DJANGO_SUPERUSER_PASSWORD=admin
+    depends_on:
+       mysql:
+          condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ping/', timeout=5)" ]
+      interval: 10s
+      timeout: 8s
+      retries: 5
+      start_period: 40s
+    expose:
+      - 8000
+    networks:
+      - appnetwork
+  parser:
+    build:
+      context: Tender_parser
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python3 main.py"
+    environment:
+      - DEBUG=0
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=WEB_PAGE_DATA
+      - DB_USER=mycuuuk
+      - DB_PASSWORD=mycuuuk
+    restart: always
+    volumes:
+      - ./results:/home/results
+    depends_on:
+      server:
+        condition: service_healthy
+    networks:
+      - appnetwork
+
+
+networks:
+  appnetwork:
+
+
+volumes:
+  mydbdata: # Определение тома
+
+

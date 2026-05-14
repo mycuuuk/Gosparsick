@@ -1,0 +1,8 @@
+
+{% autoescape off %}
+Здравствуйте, {{ user.username }},
+
+Пожалуйста, пройдите по ссылке ниже чтобы подтвердить свою почту и получить бесплатную выгрузку.
+
+{{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

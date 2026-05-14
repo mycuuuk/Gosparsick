@@ -1,0 +1,44 @@
+{% extends 'user/base.html' %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<div>
+    <h2 class="account-heading">Профиль</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+<!--            {% if user.username == form.instance.username %}-->
+<!--                <input id="id_image" type="file" name="image" hidden/>-->
+<!--                    <label for="id_image">-->
+<!--                        <img class="rounded-circle account-img profile-image"-->
+<!--                            style="cursor: pointer"-->
+<!--                            src="{{ form.instance.image.url }}"-->
+<!--                            title="Upload new image">-->
+<!--                    </label>-->
+<!--            {% else %}-->
+<!--                <img class="rounded-circle account-img profile-image", src="{{ form.instance.image.url }}">-->
+<!--            {% endif %}-->
+            <div class="media-body">
+                <h2>{{ form.instance.username }}
+                    <small class="text-muted"> (Число доступных заказов: {{ payed_orders }})</small>
+                </h2>
+                <p class="text-muted">{{ form.instance.email }}</p>
+                <p class="text-muted">{{ form.instance.description }}</p>
+            </div>
+        </div>
+
+        {% if user.username == form.instance.username %}
+            <fieldset class="form-group">
+                <legend_one class="border-bottom mb-4">Изменение информации</legend_one>
+                {{ form.email|as_crispy_field }}
+
+                    <button class="profile_btn btn-reset" type="submit">Сохранить</button>
+                    <a href="{% url 'password_change' %}" class="profile_link">Поменять пароль</a>
+            </fieldset>
+<!--            <div class="form-group">-->
+<!--                <button class="profile_btn btn-reset" type="submit">Сохранить</button>-->
+<!--            </div>-->
+        {% endif %}
+    </form>
+</div>
+{% endblock content %}

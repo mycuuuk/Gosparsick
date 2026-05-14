@@ -1,0 +1,14 @@
+django==4.2.6
+django-tinymce==3.6.1
+fontawesomefree==6.4.2
+django-crispy-forms==2.1
+django-recaptcha==3.0.0
+pillow==10.4.0
+six==1.16.0
+djangorestframework==3.14.0
+djoser==2.1.0
+pymysql==1.1.1
+crispy-bootstrap4==2023.1
+django-cors-headers
+langchain-gigachat
+langgraph

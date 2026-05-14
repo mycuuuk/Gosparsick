@@ -1,0 +1,238 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gosparsick</title>
+    <link rel="stylesheet" href="{% static '/user/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static '/user/css/style.css' %}">
+    <meta name="yandex-verification" content="dea08b0c917776c4" />
+</head>
+
+<body>
+    <main class="main">
+        <section class="hero">
+            <div class="hero__container container">
+                <div class="header__card">
+                    <a href="{% url 'home' %}" class="header__link-logo">
+                        Gosparsick
+                    </a>
+                    {% if request.user.is_authenticated %}
+                    <div class="flex-container">
+                        <buttion class="header__btn btn-reset"> <a href="{% url 'profile' user.username %}">
+                            {{user.username}}
+                        </a></buttion>
+                        <buttion class="header__btn btn-reset"> <a href="{% url 'parse' %}">
+                            Новый заказ
+                        </a></buttion>
+                        <buttion class="header__btn btn-reset"> <a href="{% url 'my_orders' %}">
+                            Мои заказы
+                        </a></buttion>
+                        <buttion class="btn_login btn-reset"> <a href="{% url 'logout' %}">
+                            Выйти
+                        </a></buttion></div>
+                    {% else %}
+                    <div class="flex-container">
+                        <buttion class="header__btn btn-reset"> <a href="{% url 'register' %}">
+                            Попробовать бесплатно
+                        </a></buttion>
+                        <buttion class="btn_login btn-reset"> <a href="{% url 'login' %}">
+                            Войти
+                        </a></buttion></div>
+                    {% endif %}
+                </div>
+                <div class="hero__info-card">
+                    <div class="hero__info">
+                        <h1 class="hero__title section-title">
+                            Самый удобный сервис по&nbsp;предоставлению выгрузки данных государственных закупок
+                        </h1>
+                        <p class="hero__text section-descr">
+                            Получите таблицу и&nbsp;анализ данных по&nbsp;торгам на&nbsp;почту, заполнив простую онлайн
+                            форму
+                        </p>
+                        <buttion class="hero__btn btn-reset"> <a href="{% url 'register' %}">
+                            Попробовать бесплатно
+                        </a></buttion>
+                    </div>
+                    <div class="hero__img-card">
+                    <div class="hero__img"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="article">
+            <div class="article__container container">
+                <h2 class="article__title section-title">
+                    Быстрая и&nbsp;удобная выгрузка<br> информации по&nbsp;торгам
+                </h2>
+                <ul class="article__list list-reset">
+                    <li class="article__item article__item-schedule">
+                        Оцените объем рынка продукта на&nbsp;старте бизнеса для привлечения инвестиций или расчёта
+                        экономических показателей
+                    </li>
+                    <li class="article__item article__item-circle">
+                        Посмотрите распределение
+                        объема продаж по различным
+                        позициям КТРУ в разных
+                        категориях
+                    </li>
+                    <li class="article__item article__item-table">
+                        Вычислите ключевых игроков в&nbsp;вашей области и&nbsp;проанализируйте их&nbsp;показатели
+                        по&nbsp;продажам
+                    </li>
+                </ul>
+
+            </div>
+        </section>
+
+        <section class="offer">
+            <div class="offer__container container">
+                <h2 class="offer__title section__title">
+                    Получите первую выгрузку бесплатно
+                </h2>
+                <p class="offer__descr section-descr">
+                    Много полезной аналитической информации без подписок<br> и&nbsp;сложных настроек. Просто заполните
+                    короткую форму.
+                </p>
+                <button class="offer__btn btn-reset"> <a href="{% url 'register' %}">
+                    Попробовать бесплатно
+                </a></button>
+            </div>
+        </section>
+
+
+        <section class="info">
+            <div class="info__container container">
+                <h2 class="info__title section-title">
+                    Мы&nbsp;даем информацию по&nbsp;следующим пунктам:
+                </h2>
+                <div class="info__card">
+                    <ul class="info__list">
+                        <li class="info__item">
+                            Номер контракта
+                        </li>
+                        <li class="info__item">
+                            Дата публикации
+                        </li>
+                        <li class="info__item">
+                            Форма собственности
+                        </li>
+                        <li class="info__item">
+                            Ссылка
+                        </li>
+                        <li class="info__item">
+                            Дата заключения контракта
+                        </li>
+                        <li class="info__item">
+                            Наименование товара
+                        </li>
+                        <li class="info__item">
+                            Код КТРУ
+                        </li>
+                        <li class="info__item">
+                            Наименование КТРУ
+                        </li>
+                    </ul>
+                    <ul class="info__list">
+                        <li class="info__item">
+                            Тип (товар/услуга)
+                        </li>
+                        <li class="info__item">
+                            Количество
+                        </li>
+                        <li class="info__item">
+                            Единицы измерения
+                        </li>
+                        <li class="info__item">
+                            Цена за единицу измерения
+                        </li>
+                        <li class="info__item">
+                            Сумма
+                        </li>
+                        <li class="info__item">
+                            Номер и наименование НКМИ (для медицинских изделий)
+                        </li>
+                    </ul>
+                    <ul class="info__list">
+                        <li class="info__item">
+                            Страна происхождение товара
+                        </li>
+                        <li class="info__item">
+                            МНН (для лекарственных препаратов)
+                        </li>
+                        <li class="info__item">
+                            Заказчик
+                        </li>
+                        <li class="info__item">
+                            ИНН заказчика
+                        </li>
+                        <li class="info__item">
+                            Регион заказчика
+                        </li>
+                        <li class="info__item">
+                            Поставщик
+                        </li>
+                    </ul>
+                </div>
+                <div class="info__buttion-card">
+                    <button class="info__btn btn-reset info__btn-left"> <a href="{% static 'user/examples/example.xlsx' %}" >
+                        Загрузить пример файла .xlsx
+                    </a></button>
+                    <button class="info__btn btn-reset info__btn-right"> <a href="{% url 'register' %}">
+                        Попробовать бесплатно
+                    </a> </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="report">
+            <div class="report__container container">
+                <h2 class="report__tite section-title">
+                    Динамика рынка в&nbsp;наглядном отчете
+                </h2>
+                <p class="report__descr section-descr">
+                    Также наша платформа умеет автоматически генерировать PDF отчет, содержащий в&nbsp;себе набор
+                    диаграмм, описывающих помесячные объемы торгов товарами и&nbsp;распределение их&nbsp;происхождения
+                    по&nbsp;странам. Объемы считаются как по&nbsp;всем товарам вошедшим в&nbsp;критерии поиска, так
+                    и&nbsp;для отдельных позиций КТРУ для каждого отдельного региона.
+                </p>
+                <div class="report__buttion-card">
+                    <button class="report__btn btn-reset report__btn-left"> <a href="{% static 'user/examples/example.pdf' %}" download>
+                        Загрузить пример файла PDF
+                    </a></button>
+                    <button class="report__btn btn-reset report__btn-right"> <a href="{% url 'register' %}">
+                        Попробовать бесплатно
+                    </a> </button>
+                </div>
+            </div>
+        </section>
+        <section class="promotion">
+            <div class="promotion__container container">
+                <h2 class="promotion__title section-title">
+                    Быстро, удобно, доступно
+                </h2>
+                <p class="promotion__descr section-descr">
+                    Сомневаетесь? Получите первую выгрузку бесплатно.<br> Все нужные данные по&nbsp;госзакупкам
+                    в&nbsp;одном
+                    месте без сложных настроек и&nbsp;подписок.
+                </p>
+                <button class="promotion__btn btn-reset"> <a href="{% url 'register' %}">
+                    Попробовать бесплатно
+                </a></button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__container container">
+        </div>
+    </footer>
+</body>
+
+</html>

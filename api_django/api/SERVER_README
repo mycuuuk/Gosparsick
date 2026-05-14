@@ -1,0 +1,4 @@
+cd Tender_bot/API/django/api_django - путь до файла manage.py, который управляет программой
+python3 manage.py runserver - запуск сервера
+Для отключения возможности редактировать бд через браузер надо закомментировать строчку 'rest_framework.renderers.BrowsableAPIRenderer', в settings.py
+Для ограничения доступа к запросам DEFAULT_PERMISSION_CLASSES IsAuthenticated AllowAny

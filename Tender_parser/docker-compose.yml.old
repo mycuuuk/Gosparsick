@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  parser:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python3 test.py"
+    restart: always
+    volumes:
+      - ./1.xlsx:/home/1.xlsx
+      - ./RusTenderDataBase223FZ.db:/home/RusTenderDataBase223FZ.db
+      - ./RusTenderDataBase.db:/home/RusTenderDataBase.db
+
+

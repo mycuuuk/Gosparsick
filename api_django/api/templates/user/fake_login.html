@@ -1,0 +1,54 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<style>
+        /* Стили для всплывающего окна */
+        #popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: none; /* Изначально скрыто */
+        }
+
+        #popup p {
+            margin: 0 0 10px;
+        }
+    </style>
+<div id="popup">
+        <p>Пожалуйста, проверьте почту.</p>
+        <button onclick="closePopup()">Закрыть</button>
+    </div>
+
+    <script>
+        // Отображаем всплывающее окно при загрузке страницы
+        window.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('popup').style.display = 'block';
+        });
+
+        // Функция для закрытия всплывающего окна и перенаправления на другую страницу
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            window.location.href = '/login/'; // Замените URL на нужный
+        }
+    </script>
+<form method="post">
+  {% csrf_token %}
+
+<div class="form-error">{{ form.non_field_errors }}</div>
+
+{% for f in form %}
+<p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+<div class="form-error">{{ f.errors }}</div>
+{% endfor %}
+
+  <button type="submit">Войти</button>
+</form>
+
+{% endblock %}

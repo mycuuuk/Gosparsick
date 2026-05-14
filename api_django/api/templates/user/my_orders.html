@@ -1,0 +1,49 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+
+  <style>
+    table {
+      border-collapse: collapse;
+      /*margin: 0 20px 0 20px;*/
+      width: calc(100% - 30px);
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+
+
+  </style>
+
+  <h1>Мои запросы (Число доступных заказов: {{ payed_orders }})</h1>
+{% for item in data %}
+  <div class="orders__element">
+    <div class="orders__element__head">
+      <span>Заказ от {{ item.time_create }}</span>
+      <span class="orders__element__status">{{item.is_ready}}</span>
+    </div>
+    <div class="orders__element__bot">
+      <span class="orders__element__bot__sub">{{ item.request}}</span>
+      <span class="orders__element__bot__sub"> {{ item.year_start }} - {{ item.year_end }}</span>
+    </div>
+    {% if item.result_pdf or item.result_excel %}
+    <div class="orders__element__downloads" style="margin-top: 8px; display: flex; gap: 10px;">
+      {% if item.result_pdf %}
+      <a href="{% url 'download_result' item.id 'pdf' %}" class="web__app__btn btn-reset" style="text-decoration:none; padding: 6px 14px; font-size: 0.9em;">
+        ⬇ Скачать PDF
+      </a>
+      {% endif %}
+      {% if item.result_excel %}
+      <a href="{% url 'download_result' item.id 'excel' %}" class="web__app__btn btn-reset" style="text-decoration:none; padding: 6px 14px; font-size: 0.9em;">
+        ⬇ Скачать Excel
+      </a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+{% endfor %}
+ <p><button id="transfer_to_new_order" class="web__app__btn btn-reset" onclick="window.location.href='{% url 'parse' %}'" type="submit">Добавить новый заказ</button>
+{% endblock %}

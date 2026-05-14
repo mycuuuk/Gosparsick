@@ -1,0 +1,19 @@
+{% extends 'user/base.html' %}
+{% block content %}
+
+
+<h1>{{title}}</h1>
+
+<form method="post">
+  {% csrf_token %}
+
+<div class="text-field__message">{{ form.non_field_errors }}</div>
+
+{% for f in form %}
+<p><label class="text-field__label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+<div class="form-error">{{ f.errors }}</div>
+{% endfor %}
+    <p><button class="web__app__btn btn-reset" type="submit">Регистрация</button></p>
+</form>
+
+{% endblock %}

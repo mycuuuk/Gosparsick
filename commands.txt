@@ -1,0 +1,24 @@
+sudo ss -lptn 'sport = :6603'             - посмотреть процессы запущенные на порте
+sudo kill -9 id                           - вырубить по айди процесса прослушанного по порту
+sudo docker-compose up                    - включить
+sudo docker-compose down                  - выключить
+sudo docker-compose ps                    - посмотреть компоузы
+sudo docker container ls                  - посмотреть контейнеры
+sudo docker stop $(docker ps -aq)              - вырубить контейнеры
+sudo docker-compose up --force-recreate <name> - вернуть сеть для контейнера с именем нейм
+sudo docker-compose run "containername" sh- запуск оболочки sh в контейнере
+sudo docker network prune
+sudo docker volume prune
+sudo aa-remove-unknown                    - Меняет основного пользователя контейнера на текущего (возможно меняет права пользователей)
+
+
+CONNECT WEB_PAGE_DATA
+INSERT INTO `api_order_cat`(`id`, `name`) VALUES ('1', 'В очереди'),('2', 'Обрабатывается'),('3', 'Выполнен'),('4', 'Завершился с ошибкой');
+
+
+
+
+
+sudo systemctl restart docker.socket docker.service             -принудительный рестарт всех сервисов
+sudo docker image rm -f $(sudo docker image ls -q)              -очистка образов докера (если контейнер не закрывается)
+
